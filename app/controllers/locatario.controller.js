@@ -6,14 +6,14 @@ const Op = db.sequelize.Op; //Redução de código
 
 exports.create = (req, res) => {
   //Validar model
-  if (!req.body.title) {
-    res.status(400).send({ message: "Falta o título do locatario!" });
+  if (!req.body.nome) {
+    res.status(400).send({ message: "Falta o nome do locatario!" });
     return;
   }
   const locatario = {
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false,
+    nome: req.body.nome,
+    cpf: req.body.cpf,
+    status: req.body.status ? req.body.status : false,
   };
   Locatario.create(locatario)
     .then((data) => {
@@ -27,7 +27,7 @@ exports.create = (req, res) => {
 };
 
 //----------------------------------------------------------------
-exports.findAll = (req, res) => {
+exports.findAll = (_req, res) => {
   Locatario.findAll({ where: null })
     .then((data) => {
       res.send(data);
@@ -38,8 +38,8 @@ exports.findAll = (req, res) => {
 };
 
 //----------------------------------------------------------------
-exports.findAllPublished = (req, res) => {
-  Locatario.findAll({ where: { published: true } })
+exports.findAllActive = (_req, res) => {
+  Locatario.findAll({ where: { status: true } })
     .then((data) => {
       res.send(data);
     })
@@ -74,7 +74,7 @@ exports.updateLocatario = (req, res) => {
   })
     .then((data) => {
       if (data == 1) {
-        return res.send({ message: "Locatarios atualizado." });
+        return res.send({ message: "Locatario atualizado." });
       } else {
         return res.send({
           message: `Não foi possível atualizar o locatario ${id}, não encontrado ou vazio.`,

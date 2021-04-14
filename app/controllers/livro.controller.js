@@ -6,14 +6,23 @@ const Op = db.sequelize.Op; //Redução de código
 
 exports.create = (req, res) => {
   //Validar model
-  if (!req.body.title) {
-    res.status(400).send({ message: "Falta o título do livro!" });
+  if (
+    !req.body.nome ||
+    !req.body.autor ||
+    !req.body.sinopse ||
+    !req.body.lancamento ||
+    !req.body.dataAluguel
+    ) {
+    res.status(400).send({ message: "Faltam dados do livro!" });
     return;
   }
   const livro = {
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false,
+    nome: req.body.nome,
+    autor: req.body.autor,
+    sinopse: req.body.sinopse,
+    lancamento: req.body.lancamento,
+    dataAluguel: req.body.dataAluguel,
+    status: req.body.status ? req.body.status : false,
   };
   Livro.create(livro)
     .then((data) => {
@@ -27,7 +36,7 @@ exports.create = (req, res) => {
 };
 
 //----------------------------------------------------------------
-exports.findAll = (req, res) => {
+exports.findAll = (_req, res) => {
   Livro.findAll({ where: null })
     .then((data) => {
       res.send(data);
@@ -38,8 +47,8 @@ exports.findAll = (req, res) => {
 };
 
 //----------------------------------------------------------------
-exports.findAllPublished = (req, res) => {
-  Livro.findAll({ where: { published: true } })
+exports.findAllLocated = (_req, res) => {
+  Livro.findAll({ where: { status: true } })
     .then((data) => {
       res.send(data);
     })
@@ -117,7 +126,7 @@ exports.deleteAll = (_req, res) => {
     where: {}, 
     truncate: false })
     .then(nums => {
-      res.send({ message: `${nums} Tutoriais deletados!` });
+      res.send({ message: `${nums} livros deletados!` });
     })
     .catch((err) => {
       res
