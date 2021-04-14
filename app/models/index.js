@@ -18,5 +18,6 @@ const sequelize = new Sequelize(
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.tutorial = require("./tutorial.model")(sequelize, Sequelize); //Cria tabela totorial no MySQL
+db.livro = require("./livro.model")(sequelize, Sequelize); //Cria tabela totorial no MySQL
+db.locatario = require("./locatario.model")(sequelize, Sequelize);
 module.exports = db;
