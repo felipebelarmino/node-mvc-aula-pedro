@@ -7,10 +7,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
     sinopse: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
     },
     lancamento: { 
-      type: Sequelize.STRING,
+      type: Sequelize.DATEONLY,
     },
     dataAluguel: {
       type: Sequelize.DATEONLY,
