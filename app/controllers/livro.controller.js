@@ -2,7 +2,7 @@ const db = require("../models");
 
 Livro = db.livro;
 
-const Op = db.sequelize.Op; //Redução de código
+const Op = db.Sequelize.Op; //Redução de código
 
 exports.create = (req, res) => {
   //Validar model
@@ -36,8 +36,13 @@ exports.create = (req, res) => {
 };
 
 //----------------------------------------------------------------
-exports.findAll = (_req, res) => {
-  Livro.findAll({ where: null })
+exports.findAll = (req, res) => {
+
+  const autor = req.query.autor;
+
+  let condition = autor ? { autor: {[Op.like]: `%${autor}%`}} : null;
+
+  Livro.findAll({ where: condition })
     .then((data) => {
       res.send(data);
     })

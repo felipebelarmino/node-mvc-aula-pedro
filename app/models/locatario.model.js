@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
     cpf: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
     },
     status: {
       type: Sequelize.BOOLEAN,

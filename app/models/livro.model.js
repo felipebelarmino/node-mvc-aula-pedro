@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
     dataAluguel: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
     },
     status: {
       type: Sequelize.BOOLEAN,
